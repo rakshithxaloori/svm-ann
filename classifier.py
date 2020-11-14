@@ -15,23 +15,22 @@ def test_classifier(clf, X, y):
     return acc_count/len(y)
 
 
-def svm_tasks(X_train, y_train, X_test, y_test, C_value):
-    type_clf = ['linear', 'poly', 'rbf']
-    clfs = []
-    for each_type in type_clf:
-        if each_type == 'poly':
-            clfs.append(make_pipeline(StandardScaler(), SVC(C=C_value, gamma='auto', kernel=each_type, degree=2)))
-        else:
-            clfs.append(make_pipeline(StandardScaler(), SVC(C=C_value, gamma='auto', kernel=each_type)))
+def svm_tasks(X_train, y_train, X_test, y_test, C_value, clf_type):
+    if clf_type == 'poly':
+        clf = make_pipeline(StandardScaler(), SVC(C=C_value, gamma='auto', kernel=clf_type, degree=2))
+    else:
+        clf = make_pipeline(StandardScaler(), SVC(C=C_value, gamma='auto', kernel=clf_type))
 
     np_X_train = np.array(X_train)
     np_y_train = np.array(y_train)
 
     # Testing
-    for each_type, each_clf in zip(type_clf, clfs):
-        each_clf.fit(np_X_train, np_y_train)
-        print("Accuracy with", each_type, "kernel:", test_classifier(each_clf, X_train, y_train), "on TRAIN data")
-        print("Accuracy with", each_type, "kernel:", test_classifier(each_clf, X_test, y_test), "on TEST data")
+    clf.fit(np_X_train, np_y_train)
+    print("kernel:", clf_type)
+    print("C_value:", C_value)
+    print("Accuracy:", test_classifier(clf, X_train, y_train), "on TRAIN data")
+    print("Accuracy:", test_classifier(clf, X_test, y_test), "on TEST data")
+    print("-----------------------------------------------------")
         
 def ann_tasks(X_train, y_train, X_test, y_test):
     pass

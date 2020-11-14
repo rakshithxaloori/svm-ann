@@ -31,9 +31,10 @@ if __name__ == "__main__":
 
     # Perform tasks
     print("SVMs")
-    for C_value in [0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0, 1000.0]:
-        print("For C value:", C_value)
-        svm_tasks(X_train, y_train, X_test, y_test, C_value)
-        print("------------------------------------")
+    clf_types = ['linear', 'poly', 'rbf']
+    # C_values obtained emphirically
+    C_values = [10.0, 100.0, 100.0]
+    for C_value, clf_type in zip(C_values, clf_types):
+        svm_tasks(X_train, y_train, X_test, y_test, C_value, clf_type)
     # TODO
     ann_tasks(X_train, y_train, X_test, y_test)
