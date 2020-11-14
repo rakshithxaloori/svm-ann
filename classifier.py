@@ -15,20 +15,19 @@ def test_classifier(clf, X, y):
     return acc_count/len(y)
 
 
-def svm_tasks(X_train, y_train, X_test, y_test):
+def svm_tasks(X_train, y_train, X_test, y_test, C_value):
     type_clf = ['linear', 'poly', 'rbf']
     clfs = []
     for each_type in type_clf:
         if each_type == 'poly':
-            clfs.append(make_pipeline(StandardScaler(), SVC(gamma='auto', kernel=each_type, degree=2)))
+            clfs.append(make_pipeline(StandardScaler(), SVC(C=C_value, gamma='auto', kernel=each_type, degree=2)))
         else:
-            clfs.append(make_pipeline(StandardScaler(), SVC(gamma='auto', kernel=each_type)))
+            clfs.append(make_pipeline(StandardScaler(), SVC(C=C_value, gamma='auto', kernel=each_type)))
 
     np_X_train = np.array(X_train)
     np_y_train = np.array(y_train)
 
     # Testing
-    print("SVMs")
     for each_type, each_clf in zip(type_clf, clfs):
         each_clf.fit(np_X_train, np_y_train)
         print("Accuracy with", each_type, "kernel:", test_classifier(each_clf, X_train, y_train), "on TRAIN data")

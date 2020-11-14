@@ -30,5 +30,10 @@ if __name__ == "__main__":
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, shuffle=True)
 
     # Perform tasks
-    svm_tasks(X_train, y_train, X_test, y_test)
+    print("SVMs")
+    for C_value in [0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0, 1000.0]:
+        print("For C value:", C_value)
+        svm_tasks(X_train, y_train, X_test, y_test, C_value)
+        print("------------------------------------")
+    # TODO
     ann_tasks(X_train, y_train, X_test, y_test)
