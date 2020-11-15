@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
+from sklearn.neural_network import MLPClassifier
 from sklearn.svm import SVC
 
 def test_classifier(clf, X, y):
@@ -32,5 +33,16 @@ def svm_tasks(X_train, y_train, X_test, y_test, C_value, clf_type):
     print("Accuracy:", test_classifier(clf, X_test, y_test), "on TEST data")
     print("-----------------------------------------------------")
         
-def ann_tasks(X_train, y_train, X_test, y_test):
-    pass
+def ann_tasks(X_train, y_train, X_test, y_test, hidden_layers, learning_rate):
+    clf = MLPClassifier(hidden_layer_sizes=hidden_layers, solver='sgd', learning_rate_init=learning_rate,)
+    
+    np_X_train = np.array(X_train)
+    np_y_train = np.array(y_train)
+
+    # Testing
+    clf.fit(np_X_train, np_y_train)
+    print("architecture:", hidden_layers)
+    print("learning rate:", learning_rate)
+    print("Accuracy:", test_classifier(clf, X_train, y_train), "on TRAIN data")
+    print("Accuracy:", test_classifier(clf, X_test, y_test), "on TEST data")
+    print("-----------------------------------------------------")

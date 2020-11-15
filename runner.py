@@ -36,5 +36,13 @@ if __name__ == "__main__":
     C_values = [10.0, 100.0, 100.0]
     for C_value, clf_type in zip(C_values, clf_types):
         svm_tasks(X_train, y_train, X_test, y_test, C_value, clf_type)
-    # TODO
-    ann_tasks(X_train, y_train, X_test, y_test)
+
+    
+    print("**********************************************************")
+    print("**********************************************************")
+
+    print("ANNs")
+    # hidden layers, nodes, learning rate
+    for hidden_layers in [(), (2,), (6,), (2, 3,), (3, 2,)]:
+        for learning_rate in [0.1, 0.01, 0.001, 0.0001, 0.00001]:
+            ann_tasks(X_train, y_train, X_test, y_test, hidden_layers, learning_rate)
