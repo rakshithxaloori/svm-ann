@@ -42,6 +42,7 @@ def ann_tasks(X_train, y_train, X_test, y_test, hidden_layers, learning_rate):
     # Testing
     clf.fit(np_X_train, np_y_train)
     print("architecture:", hidden_layers)
+    print("#output layers:", clf.n_outputs_)
     print("learning rate:", learning_rate)
     print("Accuracy:", test_classifier(clf, X_train, y_train), "on TRAIN data")
     print("Accuracy:", test_classifier(clf, X_test, y_test), "on TEST data")
